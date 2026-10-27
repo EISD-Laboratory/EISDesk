@@ -1,0 +1,114 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Subset utilitas dari WEB-EISD/app/globals.css — tambahkan dari sana kalau butuh, jangan bikin varian baru */
+
+@layer base {
+  body {
+    @apply text-gray-900 antialiased;
+    background: linear-gradient(135deg, #FAFBFF 0%, #FFFFFF 50%, #FFFAFC 100%);
+    background-attachment: fixed;
+    min-height: 100vh;
+  }
+}
+
+@layer components {
+  .card-surface {
+    @apply bg-white border border-gray-100 rounded-2xl shadow-card;
+  }
+
+  .glass-card {
+    @apply bg-white/70 backdrop-blur-md border border-white/30;
+    box-shadow:
+      0 8px 32px 0 rgba(31, 38, 135, 0.1),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+  }
+
+  .navbar-glass {
+    @apply bg-white/60 backdrop-blur-md border-b border-white/40;
+    box-shadow: 0 12px 40px rgba(17, 24, 39, 0.06);
+  }
+
+  .card-glow-smooth {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .card-glow-smooth:hover {
+    box-shadow:
+      0 20px 60px rgba(73, 76, 160, 0.12),
+      0 0 0 1px rgba(73, 76, 160, 0.05);
+  }
+
+  .shimmer-enhanced {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .shimmer-enhanced::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%) rotate(45deg);
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+    animation: shimmerEnhanced 3s infinite;
+  }
+
+  @keyframes shimmerEnhanced {
+    100% { transform: translateX(100%) rotate(45deg); }
+  }
+
+  /* Tombol — selalu rounded-full (konvensi WEB-EISD) */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold transition-colors duration-300 disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  .btn-primary {
+    @apply btn bg-primary text-white hover:bg-primary-dark;
+  }
+
+  .btn-secondary {
+    @apply btn bg-white border border-gray-200 text-gray-700 hover:border-primary/30 hover:text-primary;
+  }
+
+  .btn-danger {
+    @apply btn bg-red-600 text-white hover:bg-red-700;
+  }
+
+  .input {
+    @apply w-full rounded-xl border border-gray-200 bg-white px-4 py-2.5 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20;
+  }
+
+  .label {
+    @apply mb-1.5 block text-sm font-medium text-gray-700;
+  }
+
+  .icon-chip {
+    @apply flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-primary/15 bg-primary/10 text-primary;
+  }
+}
+
+@layer utilities {
+  .hairline {
+    @apply h-px bg-gray-200;
+  }
+
+  .pulse-subtle {
+    animation: pulseSubtle 3s ease-in-out infinite;
+  }
+
+  @keyframes pulseSubtle {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.9; transform: scale(1.05); }
+  }
+}
+
+::selection {
+  background-color: rgba(73, 76, 160, 0.3);
+  color: #1a202c;
+}
+
+:focus-visible {
+  outline: 2px solid #494CA0;
+  outline-offset: 2px;
+}
