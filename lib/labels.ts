@@ -49,3 +49,7 @@ export const ROLE_LABEL = {
   admin: 'Admin',
   super_admin: 'Super Admin',
 } as const
+
+// Divisi lab (tetap). Disimpan apa adanya; dicek juga oleh constraint profiles.divisi.
+export const DIVISIONS = ['Competition', 'Content', 'Enabler', 'Event', 'Practicum', 'Research & Community', 'Study Group'] as const
+export type Division = (typeof DIVISIONS)[number]

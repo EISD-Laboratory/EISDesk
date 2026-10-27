@@ -11,7 +11,7 @@ export default async function UsersPage() {
   // NIM tidak di-grant ke klien; admin butuh untuk identifikasi, jadi dibaca server setelah cek role
   const { data: users } = await createAdminClient()
     .from('profiles')
-    .select('id, nim, full_name, code, role, is_active, must_change_secret')
+    .select('id, nim, full_name, code, role, is_active, must_change_secret, angkatan, divisi')
     .order('is_active', { ascending: false })
     .order('role', { ascending: false })
     .order('full_name')

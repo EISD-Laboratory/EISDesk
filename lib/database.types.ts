@@ -155,14 +155,14 @@ isOneToOne: false
                   ]
                 },"profiles": {
                   Row: {
-                    "auth_email": string,"code": string,"created_at": string,"full_name": string,"id": string,"is_active": boolean,"must_change_secret": boolean,"nim": string,"notify_session_open": boolean,"role": Database["public"]['Enums']["user_role"],"telegram_chat_id": number | null,"updated_at": string
+                    "angkatan": number | null,"auth_email": string,"code": string,"created_at": string,"divisi": string | null,"full_name": string,"id": string,"is_active": boolean,"must_change_secret": boolean,"nim": string,"notify_session_open": boolean,"role": Database["public"]['Enums']["user_role"],"telegram_chat_id": number | null,"updated_at": string
                   }
                   ComputedFields: never
                   Insert: {
-                    "auth_email": string,"code": string,"created_at"?: string,"full_name": string,"id": string,"is_active"?: boolean,"must_change_secret"?: boolean,"nim": string,"notify_session_open"?: boolean,"role"?: Database["public"]['Enums']["user_role"],"telegram_chat_id"?: number | null,"updated_at"?: string
+                    "angkatan"?: number | null,"auth_email": string,"code": string,"created_at"?: string,"divisi"?: string | null,"full_name": string,"id": string,"is_active"?: boolean,"must_change_secret"?: boolean,"nim": string,"notify_session_open"?: boolean,"role"?: Database["public"]['Enums']["user_role"],"telegram_chat_id"?: number | null,"updated_at"?: string
                   }
                   Update: {
-                    "auth_email"?: string,"code"?: string,"created_at"?: string,"full_name"?: string,"id"?: string,"is_active"?: boolean,"must_change_secret"?: boolean,"nim"?: string,"notify_session_open"?: boolean,"role"?: Database["public"]['Enums']["user_role"],"telegram_chat_id"?: number | null,"updated_at"?: string
+                    "angkatan"?: number | null,"auth_email"?: string,"code"?: string,"created_at"?: string,"divisi"?: string | null,"full_name"?: string,"id"?: string,"is_active"?: boolean,"must_change_secret"?: boolean,"nim"?: string,"notify_session_open"?: boolean,"role"?: Database["public"]['Enums']["user_role"],"telegram_chat_id"?: number | null,"updated_at"?: string
                   }
                   Relationships: [
                     
@@ -292,7 +292,7 @@ isOneToOne: false
           }
           Functions: {
             "admin_create_profile":
-{ Args: { "p_auth_email": string,"p_code": string,"p_full_name": string,"p_id": string,"p_nim": string,"p_role": Database["public"]['Enums']["user_role"] }; Returns: undefined
+{ Args: { "p_angkatan"?: number,"p_auth_email": string,"p_code": string,"p_divisi"?: string,"p_full_name": string,"p_id": string,"p_nim": string,"p_role": Database["public"]['Enums']["user_role"] }; Returns: undefined
                            },
 "admin_require_secret_change":
 { Args: { "p_user": string }; Returns: undefined
@@ -304,7 +304,7 @@ isOneToOne: false
 { Args: { "p_role": Database["public"]['Enums']["user_role"],"p_user": string }; Returns: undefined
                            },
 "admin_update_profile":
-{ Args: { "p_code": string,"p_full_name": string,"p_user": string }; Returns: undefined
+{ Args: { "p_angkatan"?: number,"p_code": string,"p_divisi"?: string,"p_full_name": string,"p_user": string }; Returns: undefined
                            },
 "cancel_session":
 { Args: { "p_reason": string,"p_session_id": string }; Returns: undefined
@@ -323,9 +323,11 @@ isOneToOne: false
                            },
 "get_my_profile":
 { Args: Record<PropertyKey, never>; Returns: {
-              "auth_email": string,
+              "angkatan": number | null,
+"auth_email": string,
 "code": string,
 "created_at": string,
+"divisi": string | null,
 "full_name": string,
 "id": string,
 "is_active": boolean,
