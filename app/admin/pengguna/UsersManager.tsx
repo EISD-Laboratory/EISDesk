@@ -138,7 +138,7 @@ export default function UsersManager({ users, meId, isSuperAdmin }: { users: Use
                 {u.divisi && ` · ${u.divisi}`}
                 {u.angkatan && ` · Angkatan ${u.angkatan}`}
                 {!u.is_active && ' · Nonaktif'}
-                {u.is_active && u.must_change_secret && ' · Belum ganti rahasia'}
+                {u.is_active && u.must_change_secret && ` · Belum ganti ${secretName(u.role)}`}
               </p>
             </div>
             {canManage(u) && u.id !== meId && (

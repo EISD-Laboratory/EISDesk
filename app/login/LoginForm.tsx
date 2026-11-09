@@ -1,6 +1,7 @@
 'use client'
 
 import { useActionState } from 'react'
+import SecretInput from '@/components/SecretInput'
 import { login } from './actions'
 
 export default function LoginForm() {
@@ -22,7 +23,7 @@ export default function LoginForm() {
       </div>
       <div>
         <label htmlFor="secret" className="label">PIN / Password</label>
-        <input id="secret" name="secret" type="password" autoComplete="current-password" required className="input" />
+        <SecretInput id="secret" name="secret" autoComplete="current-password" required />
         <p className="mt-1.5 text-xs text-gray-400">Staff: PIN 6 digit. Admin: password.</p>
       </div>
       {state?.error && <p className="rounded-xl bg-red-50 px-4 py-2.5 text-sm text-red-600">{state.error}</p>}

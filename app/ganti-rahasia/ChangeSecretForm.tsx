@@ -1,6 +1,7 @@
 'use client'
 
 import { useActionState } from 'react'
+import SecretInput from '@/components/SecretInput'
 import { changeSecret } from './actions'
 
 export default function ChangeSecretForm({ isStaff }: { isStaff: boolean }) {
@@ -14,7 +15,7 @@ export default function ChangeSecretForm({ isStaff }: { isStaff: boolean }) {
     <form action={action} className="space-y-4">
       <div>
         <label htmlFor="secret" className="label">{label} baru</label>
-        <input id="secret" name="secret" type="password" autoComplete="new-password" required className="input" {...inputProps} />
+        <SecretInput id="secret" name="secret" autoComplete="new-password" required {...inputProps} />
         <p className="mt-1.5 text-xs text-gray-400">
           {isStaff
             ? '6 digit angka, bukan angka sama/berurutan, bukan akhir NIM.'
@@ -23,7 +24,7 @@ export default function ChangeSecretForm({ isStaff }: { isStaff: boolean }) {
       </div>
       <div>
         <label htmlFor="confirm" className="label">Ulangi {label} baru</label>
-        <input id="confirm" name="confirm" type="password" autoComplete="new-password" required className="input" {...inputProps} />
+        <SecretInput id="confirm" name="confirm" autoComplete="new-password" required {...inputProps} />
       </div>
       {state?.error && <p className="rounded-xl bg-red-50 px-4 py-2.5 text-sm text-red-600">{state.error}</p>}
       <button disabled={pending} className="btn-primary w-full">

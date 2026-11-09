@@ -2,7 +2,7 @@
 -- Memakai akun dari supabase/seed.sql dan waktu tetap Senin 2 Nov 2026 10:00 WIB.
 begin;
 create extension if not exists pgtap with schema extensions;
-select plan(28);
+select plan(32);
 
 set local eisdesk.now = '2026-11-02 10:00+07';
 
@@ -15,7 +15,8 @@ insert into storage.objects (bucket_id, name) values
   ('session-photos', '00000000-0000-4000-a000-000000000002/room.jpg'),
   ('session-photos', '00000000-0000-4000-a000-000000000003/open.jpg'),
   ('session-photos', '00000000-0000-4000-a000-000000000003/room.jpg'),
-  ('session-photos', '00000000-0000-4000-a000-000000000003/key.jpg');
+  ('session-photos', '00000000-0000-4000-a000-000000000003/key.jpg')
+on conflict do nothing;
 
 insert into public.holidays (date, name, type) values ('2026-11-03', 'Libur Uji', 'nasional');
 
@@ -151,6 +152,23 @@ select throws_ok(
 
 do $$ begin perform public.record_login_attempt('1000000004', false) from generate_series(1, 5); end $$;
 select ok(public.login_locked_until('1000000004') is not null, '5 kali salah -> akun terkunci');
+
+-- ===== pengaturan =====
+set local role authenticated;
+set local request.jwt.claims = '{"sub":"00000000-0000-4000-a000-000000000002","role":"authenticated"}';
+select throws_ok(
+  $$ select public.update_settings(8, 21, 90, null) $$,
+  null, null, 'admin biasa tidak bisa mengubah pengaturan');
+
+set local request.jwt.claims = '{"sub":"00000000-0000-4000-a000-000000000001","role":"authenticated"}';
+select throws_ok(
+  $$ select public.update_settings(20, 10, 90, null) $$,
+  'P0001', 'Jam tutup harus lebih besar dari jam buka', 'jam tutup <= jam buka ditolak');
+select lives_ok(
+  $$ select public.update_settings(7, 20, 60, null) $$,
+  'super admin bisa menyimpan pengaturan');
+reset role;
+select is((select close_hour from public.settings), 20, 'pengaturan benar-benar tersimpan');
 
 select * from finish();
 rollback;

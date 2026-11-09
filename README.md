@@ -19,6 +19,16 @@ npm run dev
 
 Akun uji lokal ada di `supabase/seed.sql` (login pakai NIM).
 
+File env (keduanya di-ignore git, jangan di-commit):
+
+| File | Isi | Dipakai |
+|---|---|---|
+| `.env.local` | Supabase **lokal** (Docker), nilai dari `npx supabase status -o env` | Semua perintah di laptop (`dev`, `build`, `start`); menimpa `.env` |
+| `.env` | Supabase **produksi** (cadangan key) | Hanya kalau `.env.local` tidak ada |
+
+Jadi coba-coba fitur di laptop tidak menyentuh database produksi. Produksi di Vercel memakai env dari
+dashboard Vercel. Untuk sengaja menjalankan app lokal ke produksi, ganti sementara nama `.env.local`.
+
 Perintah lain:
 
 | Perintah | Fungsi |
